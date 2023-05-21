@@ -103,7 +103,7 @@ function simplify(cc) {
 }
 
 // 主函数
-function operator(proxies, startFill) {
+function operator(proxies) {
   proxies.map((res) => {
     const resultArray = [airport];
     var matched = false
@@ -113,7 +113,7 @@ function operator(proxies, startFill) {
         if (!autofill) {
           resultArray.push(countries[elem][0], countries[elem][1]);
         } else {
-          resultArray.push(countries[elem][0], (countries[elem][1] + startFill).toString().padStart(autofill, '0'));
+          resultArray.push(countries[elem][0], countries[elem][1].toString().padStart(autofill, '00'));
         }
         // console.log(resultArray);
         matched = true
