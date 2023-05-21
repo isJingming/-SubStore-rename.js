@@ -72,17 +72,17 @@ const airport = ($arguments.airport == undefined) ? '' : decodeURI($arguments.ai
 
 //删除非必要的1
 function stripOnes(proxies) {
-  Object.keys(countries).forEach((item,index,array)=>{
+  Object.keys(countries).forEach((item, index, array) => {
     if (countries[item][1] === 1) {
       proxies.map((res) => {
         if (res.name.indexOf(countries[item][0]) !== -1) {
           res.name = res.name.replace("1", '').replace('0', '');
-        };
+        }
       });
-    };
+    }
   });
-  return proxies
-};
+  return proxies;
+}
 
 // 简繁转换
 function charPYStr() {
@@ -106,23 +106,23 @@ function simplify(cc) {
 function operator(proxies) {
   proxies.map((res) => {
     const resultArray = [airport];
-    var matched = false
+    var matched = false;
     for (const elem of Object.keys(countries)) {
       if (simplify(res.name).indexOf(elem) !== -1) {
         countries[elem][1] += 1;
         if (!autofill) {
           resultArray.push(countries[elem][0], countries[elem][1]);
         } else {
-          resultArray.push(countries[elem][0], countries[elem][1].toString().padStart(2, '0'));
+          const formattedNumber = countries[elem][1].toString().padStart(autofill, '0');
+          resultArray.push(countries[elem][0], formattedNumber);
         }
-        // console.log(resultArray);
-        matched = true
+        matched = true;
         break;
-      };
-    };
+      }
+    }
     if (!matched) {
       resultArray.push(res.name);
-    };
+    }
     Object.keys(others).forEach((elem, index) => {
       if (simplify(res.name).indexOf(elem) !== -1) {
         resultArray.splice(2, 0, others[elem]);
@@ -132,6 +132,7 @@ function operator(proxies) {
   });
   if ($arguments.del1) {
     proxies = stripOnes(proxies);
-  };
+  }
   return proxies;
 }
+
