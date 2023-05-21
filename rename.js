@@ -102,35 +102,27 @@ function simplify(cc) {
   return str;
 }
 
-// 确保 $arguments.autofill 的值为一个能够转换为整数的数字，默认为 2
-const autofillValue = parseInt($arguments.autofill) || 2;
-
-// 将 autofill 变量设置为 autofillValue 或默认值
-const autofill = parseInt(autofillValue) || 2;
-
-
-
 // 主函数
 function operator(proxies) {
   proxies.map((res) => {
     const resultArray = [airport];
-    var matched = false;
+    var matched = false
     for (const elem of Object.keys(countries)) {
       if (simplify(res.name).indexOf(elem) !== -1) {
         countries[elem][1] += 1;
         if (!autofill) {
           resultArray.push(countries[elem][0], countries[elem][1]);
         } else {
-          const paddedNumber = countries[elem][1].toString().padStart(autofill, '0');
-          resultArray.push(countries[elem][0], paddedNumber);
+          resultArray.push(countries[elem][0], countries[elem][1].toString().padStart(autofill, '0'));
         }
-        matched = true;
+        // console.log(resultArray);
+        matched = true
         break;
-      }
-    }
+      };
+    };
     if (!matched) {
       resultArray.push(res.name);
-    }
+    };
     Object.keys(others).forEach((elem, index) => {
       if (simplify(res.name).indexOf(elem) !== -1) {
         resultArray.splice(2, 0, others[elem]);
@@ -140,15 +132,6 @@ function operator(proxies) {
   });
   if ($arguments.del1) {
     proxies = stripOnes(proxies);
-  }
+  };
   return proxies;
 }
-
-// 确保 $arguments.autofill 的值为一个能够转换为整数的数字，默认为 2
-const autofillValue = parseInt($arguments.autofill) || 2;
-
-// 将 autofill 变量设置为 autofillValue 或默认值
-const autofill = parseInt(autofillValue) || 2;
-
-// 调用 operator(proxies) 函数
-operator(proxies);
