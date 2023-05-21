@@ -72,17 +72,17 @@ const airport = ($arguments.airport == undefined) ? '' : decodeURI($arguments.ai
 
 //删除非必要的1
 function stripOnes(proxies) {
-  Object.keys(countries).forEach((item, index, array) => {
+  Object.keys(countries).forEach((item,index,array)=>{
     if (countries[item][1] === 1) {
       proxies.map((res) => {
         if (res.name.indexOf(countries[item][0]) !== -1) {
           res.name = res.name.replace("1", '').replace('0', '');
-        }
+        };
       });
-    }
+    };
   });
-  return proxies;
-}
+  return proxies
+};
 
 // 简繁转换
 function charPYStr() {
@@ -113,8 +113,8 @@ function operator(proxies) {
         if (!autofill) {
           resultArray.push(countries[elem][0], countries[elem][1]);
         } else {
-          const formattedNumber = countries[elem][1].toString().padStart(autofill, '0');
-          resultArray.push(countries[elem][0], formattedNumber);
+          const count = countries[elem][1].toString().padStart(2, '0');
+          resultArray.push(countries[elem][0], count);
         }
         matched = true;
         break;
@@ -135,4 +135,3 @@ function operator(proxies) {
   }
   return proxies;
 }
-
