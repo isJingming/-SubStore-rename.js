@@ -113,7 +113,7 @@ function operator(proxies) {
         if (!autofill) {
           resultArray.push(countries[elem][0], countries[elem][1]);
         } else {
-          resultArray.push(countries[elem][0], countries[elem][1].toString().padStart(autofill, '00'));
+          resultArray.push(countries[elem][0], countries[elem][1].toString().padStart(2, '0'));
         }
         // console.log(resultArray);
         matched = true
